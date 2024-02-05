@@ -1,0 +1,25 @@
+{
+  "name": "fitness-club",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Alireza <alireza.dolatabadi.jc@gmail.com>",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1",
+    "pino": "^8.18.0",
+    "pino-http": "^9.0.0",
+    "pino-pretty": "^10.3.1"
+  }
+}
