@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Edit Member</title>
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="/assets/pages/Home/index.html" class="nav__logo">Gym Membership Management</a>
+
+            <div class="nav__menu" id="nav-menu">
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+            <div class="nav__actions">
+                <a href="/assets/pages/MemberList/index.html" class="nav__signin">Back to Member List</a>
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="container">
+            <br><br><br><br>
+            <form id="addTrainerForm" class="add-trainer">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <button type="submit">Edit Member</button>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__logo">Gym Membership Management</div>
+            <div class="footer__social">
+                <a href="#" class="footer__icon"><i class="ri-facebook-fill"></i></a>
+                <a href="#" class="footer__icon"><i class="ri-twitter-fill"></i></a>
+                <a href="#" class="footer__icon"><i class="ri-instagram-fill"></i></a>
+            </div>
+            <p class="footer__text">© 2024 Gym Membership Management. All rights reserved.</p>
+            <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
