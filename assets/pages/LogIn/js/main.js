@@ -35,6 +35,7 @@ document.querySelector('.login__form').addEventListener('submit', async (event) 
     if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.token)
+        localStorage.setItem('role' , data.role)
         if(data.role === 'admin') {
             window.location.href = "../AdminPanel/index.html"
         }else if (data.role === 'trainer'){
