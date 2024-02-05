@@ -1,6 +1,8 @@
-const { User, Admin, Member, Trainer } = require('../models/User');
+const User = require('../models/User');
 const { checkRole, validate } = require('../util');
 const { validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
+const secretKey = 'your_secret_key'; // Replace with your secret key
 
 exports.addMember = [
     validate('addMember'),
