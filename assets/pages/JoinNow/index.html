@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/pages/JoinNow/styles/styles.css">
+    <title>Join Now</title>
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">Gym Membership Management</a>
+
+            <div class="nav__menu" id="nav-menu">
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+            <div class="nav__actions">
+                <button class="nav__signin">Go Back</button>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="container">
+            <form id="searchForm" class="search">
+                <input type="text" id="searchInput" placeholder="Search trainers...">
+                <button type="submit">Search</button>
+            </form>
+            <br>
+            <div id="trainersList" class="trainers-list">
+                <div class="trainer">
+                    <h2 class="trainer__name">John Doe</h2>
+                    <div class="trainer__actions">
+                        <button class="trainer__delete">Hire</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__logo">Gym Membership Management</div>
+            <div class="footer__social">
+                <a href="#" class="footer__icon"><i class="ri-facebook-fill"></i></a>
+                <a href="#" class="footer__icon"><i class="ri-twitter-fill"></i></a>
+                <a href="#" class="footer__icon"><i class="ri-instagram-fill"></i></a>
+            </div>
+            <p class="footer__text">© 2024 Gym Membership Management. All rights reserved.</p>
+            <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
+        </div>
+    </footer>
+    <script src="trainerList.js"></script>
+</body>
+</html>
