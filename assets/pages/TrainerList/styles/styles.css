@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--body-color);
+    color: var(--title-color);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
+    z-index: var(--z-fixed);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: var(--font-semi-bold);
+}
+
+button {
+    background-color: var(--first-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: var(--normal-font-size);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a4a4a;
+}
+
+#trainersList {
+    padding: 20px;
+}
+
+.trainer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 0;
+}
+
+.trainer-item button {
+    background-color: var(--first-color);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.trainer-item button.edit-btn {
+    background-color: #4CAF50;
+}
+
+.trainer-item button:hover {
+    background-color: #45a049;
+}
+
+.footer {
+    background-color: var(--container-color);
+    color: var(--title-color);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.footer__logo {
+    font-weight: var(--font-semi-bold);
+    margin-bottom: 1rem;
+}
+
+.footer__social {
+    margin-bottom: 1rem;
+}
+
+.footer__icon {
+    margin: 0 0.5rem;
+    color: var(--title-color);
+    font-size: 1.5rem;
+}
+
+.footer__text {
+    font-size: 0.875rem;
+}
