@@ -1,16 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/pages/TrainerList/styles/styles.css">
-    <title>Trainers Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Add Member</title>
 </head>
 <body>
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="#" class="nav__logo">Gym Membership Management</a>
+            <a href="/assets/pages/Home/index.html" class="nav__logo">Gym Membership Management</a>
 
             <div class="nav__menu" id="nav-menu">
                 <div class="nav__close" id="nav-close">
@@ -18,29 +17,32 @@
                 </div>
             </div>
             <div class="nav__actions">
-                <button class="nav__signin">Add Trainer</button>
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-line"></i>
-                </div>
+                <a href="/assets/pages/MemberList/index.html" class="nav__signin">Back to Member List</a>
             </div>
         </nav>
     </header>
     <div class="main">
         <div class="container">
-            <form id="searchForm" class="search">
-                <input type="text" id="searchInput" placeholder="Search trainers...">
-                <button type="submit">Search</button>
-            </form>
-            <br>
-            <div id="trainersList" class="trainers-list">
-                <div class="trainer">
-                    <h2 class="trainer__name">John Doe</h2>
-                    <div class="trainer__actions">
-                        <button class="trainer__edit">Edit</button>
-                        <button class="trainer__delete">Delete</button>
-                    </div>
+            <br><br><br><br>
+            <form id="addTrainerForm" class="add-trainer">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <button type="submit">Add Member</button>
+            </form>
         </div>
     </div>
     <footer class="footer">
@@ -55,6 +57,6 @@
             <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
         </div>
     </footer>
-    <script src="trainerList.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
