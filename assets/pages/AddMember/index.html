@@ -9,7 +9,7 @@
 <body>
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="/assets/pages/Home/index.html" class="nav__logo">Gym Membership Management</a>
+            <a href="../Home/index.html" class="nav__logo">Gym Membership Management</a>
 
             <div class="nav__menu" id="nav-menu">
                 <div class="nav__close" id="nav-close">
@@ -17,14 +17,22 @@
                 </div>
             </div>
             <div class="nav__actions">
-                <a href="/assets/pages/MemberList/index.html" class="nav__signin">Back to Member List</a>
+                <a href="../MemberList/index.html" class="nav__signin">Back to Member List</a>
             </div>
         </nav>
     </header>
     <div class="main">
         <div class="container">
             <br><br><br><br>
-            <form id="addTrainerForm" class="add-trainer">
+            <form id="addMemberForm" class="add-trainer">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input type="text" id="firstName" name="firstName" required>
@@ -35,11 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
-                </div>
-                <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" id="age" name="age" required>
+                    <input type="tel" id="phone" name="phone" required>
                 </div>
                 <button type="submit">Add Member</button>
             </form>
@@ -57,6 +61,6 @@
             <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
         </div>
     </footer>
-    <script src="app.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
