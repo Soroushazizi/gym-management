@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/pages/MemberList/styles/styles.css">
+    <link rel="stylesheet" href="../MemberList/styles/styles.css">
     <title>Member List</title>
 </head>
 <body>
@@ -17,7 +17,8 @@
                 </div>
             </div>
             <div class="nav__actions">
-                <button class="nav__signin">Add Member</button>
+                <a class="nav__signin" href="../AddMember/index.html">Add Member</a>
+                <a class="nav__signin" href="../Home/index.html">Home</a>
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="ri-menu-line"></i>
                 </div>
@@ -32,13 +33,6 @@
             </form>
             <br>
             <div id="membersList" class="members-list">
-                <div class="member">
-                    <h2 class="member__name">Jane Doe</h2>
-                    <div class="member__actions">
-                        <button class="member__edit">Edit</button>
-                        <button class="member__delete">Delete</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -54,6 +48,6 @@
             <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
         </div>
     </footer>
-    <script src="app.js"></script>
+    <script src="memberList.js"></script>
 </body>
 </html>

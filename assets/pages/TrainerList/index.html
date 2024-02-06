@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/pages/TrainerList/styles/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <title>Trainers Page</title>
 </head>
 <body>
@@ -30,15 +30,11 @@
                 <input type="text" id="searchInput" placeholder="Search trainers...">
                 <button type="submit">Search</button>
             </form>
+            <div class="container">
+                <a id="addTrainerBtn" class="add-trainer-btn" href="../AddTrainer/index.html">Add Trainer</a>
+            </div>
             <br>
             <div id="trainersList" class="trainers-list">
-                <div class="trainer">
-                    <h2 class="trainer__name">John Doe</h2>
-                    <div class="trainer__actions">
-                        <button class="trainer__edit">Edit</button>
-                        <button class="trainer__delete">Delete</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
