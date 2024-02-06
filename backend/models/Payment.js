@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const PaymentSchema = new mongoose.Schema({
-    member: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     amount: {
         type: Number,
         required: true
@@ -17,6 +12,11 @@ const PaymentSchema = new mongoose.Schema({
     membership: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Membership',
+        required: true
+    },
+    trainer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Trainer',
         required: true
     }
 });

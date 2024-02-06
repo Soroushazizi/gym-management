@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
+const User = require("./User");
 
 const MembershipSchema = new mongoose.Schema({
-    member: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    firstName: {
+        type: String,
         required: true
     },
-    startDate: {
-        type: Date,
-        default: Date.now
+    lastName: {
+        type: String,
+        required: true
     },
-    endDate: {
-        type: Date,
+    phoneNumber: {
+        type: Number,
         required: true
     },
     payment: {
         type: Number,
-        required: true
+        required: false,
+        default: 0
     }
 });
 
-const Membership = mongoose.model('Membership', MembershipSchema);
-
+const Membership = User.discriminator('Membership', MembershipSchema);
 module.exports = Membership

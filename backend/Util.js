@@ -1,17 +1,21 @@
 const jwt = require("jsonwebtoken");
 const {body, validationResult} = require('express-validator');
+const User = require("./models/User");
+const secretKey = 'your_secret_key'; // Replace with your secret key
 
 exports.checkRole = (role) => {
-    return function(req, res, next) {
+    return async function (req, res, next) {
         try {
             const token = req.headers.authorization.split(" ")[1];
             const decoded = jwt.verify(token, secretKey);
-            if (decoded.role !== role) {
+            const user = await User.findById(decoded.id);
+            if (user.role !== role) {
                 return res.status(403).send({error: 'Forbidden'});
             }
+            req.user = user; // Attach the user to the req object
             next();
         } catch (error) {
-            res.status(500).send({error: 'Server error'});
+            res.status(401).send({error: 'UnAuthorized'});
         }
     }
 }
