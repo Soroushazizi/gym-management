@@ -15,7 +15,7 @@ async function attend(value) {
 
     if (response.ok) {
         alert('Done')
-        window.location.reload()
+        window.location.href = "../MemberAttendance/index.html"
     } else if (response.status === 404) {
         alert('User not registered');
     } else {
