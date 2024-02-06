@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const AttendanceSchema = new mongoose.Schema({
     member: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Membership',
         required: true
     },
     trainer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Trainer',
         required: true
     },
     date: {
