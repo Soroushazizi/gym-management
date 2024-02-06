@@ -1,96 +1,70 @@
 const User = require('../models/User');
-const { checkRole, validate } = require('../util');
-const { validationResult } = require('express-validator');
-const jwt = require('jsonwebtoken');
-const secretKey = 'your_secret_key'; // Replace with your secret key
+const {checkRole, validate} = require('../util');
+const {validationResult} = require('express-validator');
+const Trainer = require("../models/Trainer");
+const Membership = require("../models/Membership");
 
-exports.addMember = [
-    validate('addMember'),
-    checkRole('admin'),
+exports.addMember =
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({errors: errors.array()});
         }
-        const newMember = new Member(req.body);
+        const body = req.body;
+        body.role = 'member';
+        // Check if a user with the same username already exists
+        const existingUser = await User.findOne({username: body.username});
+        if (existingUser) {
+            return res.status(400).send({msg: 'Username already exists'});
+        }
+        const newMember = new Membership(req.body);
         await newMember.save();
         res.status(201).send(newMember);
     }
-];
+;
 
-exports.deleteMember = [
-    validate('deleteMember'),
-    checkRole('admin'),
+exports.deleteMember =
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({errors: errors.array()});
         }
-        const member = await Member.findByIdAndDelete(req.params.id);
+        const member = await Membership.findByIdAndDelete(req.params.id);
         if (!member) return res.status(404).send();
         res.status(200).send(member);
     }
-];
+;
 
-exports.addTrainer = [
-    validate('addTrainer'),
-    checkRole('admin'),
+exports.addTrainer =
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({errors: errors.array()});
         }
-        const newTrainer = new Trainer(req.body);
+        const body = req.body;
+        body.role = 'trainer';
+        // Check if a user with the same username already exists
+        const existingUser = await User.findOne({username: body.username});
+        if (existingUser) {
+            return res.status(400).send({msg: 'Username already exists'});
+        }
+        const newTrainer = new Trainer({
+            firstName: body.firstName,
+            lastName: body.lastName,
+            phoneNumber: body.phone,
+            shiftFrom: body.shiftFrom,
+            shiftTo: body.shiftTo,
+            salary: body.salary,
+            username: body.username,
+            password: body.password,
+            role: body.role
+        });
         await newTrainer.save();
-        res.status(201).send(newTrainer);
+        res.status(201).send({msg: 'new Trainer added'});
     }
-];
+;
 
-exports.showTrainers = [
-    checkRole('admin'),
-    async (req, res) => {
-        try {
-            const filters = {};
-            if (req.query.name) {
-                filters.name = req.query.name;
-            }
-            if (req.query.id) {
-                filters._id = req.query.id;
-            }
-            // Add other filters as needed
-
-            const trainers = await Trainer.find(filters);
-            res.status(200).send(trainers);
-        } catch (error) {
-            res.status(500).send({ error: 'Server error' });
-        }
-    }
-];
-
-exports.showMembers = [
-    checkRole('admin'),
-    async (req, res) => {
-        try {
-            const filters = {};
-            if (req.query.name) {
-                filters.name = req.query.name;
-            }
-            if (req.query.id) {
-                filters._id = req.query.id;
-            }
-            // Add other filters as needed
-
-            const members = await Member.find(filters);
-            res.status(200).send(members);
-        } catch (error) {
-            res.status(500).send({ error: 'Server error' });
-        }
-    }
-];
-
-exports.deleteTrainer = [
-    validate('deleteTrainer'),
-    checkRole('admin'),
+exports.deleteTrainer =
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -100,28 +74,23 @@ exports.deleteTrainer = [
         if (!trainer) return res.status(404).send();
         res.status(200).send(trainer);
     }
-];
+;
 
-exports.modifyMemberData = [
-    validate('modifyMemberData'),
-    checkRole('admin'),
+exports.modifyMemberData =
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({errors: errors.array()});
         }
         const updates = Object.keys(req.body);
-        const member = await Member.findById(req.params.id);
+        const member = await Membership.findById(req.params.id);
         if (!member) return res.status(404).send();
         updates.forEach((update) => member[update] = req.body[update]);
         await member.save();
         res.send(member);
-    }
-];
+    };
 
-exports.modifyTrainerShifts = [
-    validate('modifyTrainerShifts'),
-    checkRole('admin'),
+exports.modifyTrainerShifts =
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -134,4 +103,4 @@ exports.modifyTrainerShifts = [
         await trainer.save();
         res.send(trainer);
     }
-];
+;
