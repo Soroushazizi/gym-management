@@ -1,56 +1,103 @@
-// scripts.js
-const addTrainerBtn = document.getElementById("addTrainerBtn");
+document.addEventListener('DOMContentLoaded', () => {
+    fetchTrainers();
+});
+
 const trainersList = document.getElementById("trainersList");
 
-// Dummy data for trainers (replace with real data)
-const trainers = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Michael Johnson" }
-];
+// Fetch trainers from the server and display them
+async function fetchTrainers(query = {}) {
+    try {
+        const url = new URL('http://localhost:5000/api/trainer/trainer');
+        url.search = new URLSearchParams(query).toString();
 
-// Function to create a new trainer item
-function createTrainerItem(trainer) {
-    const trainerItem = document.createElement("div");
-    trainerItem.classList.add("trainer-item");
-    trainerItem.innerHTML = `
-        <span>${trainer.name}</span>
-        <div>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-        </div>
-    `;
-    return trainerItem;
-}
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-// Function to render trainers list
-function renderTrainers() {
-    trainersList.innerHTML = "";
-    trainers.forEach(trainer => {
-        const trainerItem = createTrainerItem(trainer);
-        trainersList.appendChild(trainerItem);
-    });
-}
+        const trainers = await response.json();
 
-// Event listener for add trainer button
-addTrainerBtn.addEventListener("click", () => {
-    // Add your logic for adding a new trainer here
-    alert("Add Trainer button clicked!");
-});
+        const trainersList = document.getElementById('trainersList');
+        trainersList.innerHTML = ''; // Clear the list
 
-// Event delegation for edit and delete buttons
-trainersList.addEventListener("click", event => {
-    const target = event.target;
-    if (target.classList.contains("edit-btn")) {
-        // Add your logic for editing a trainer here
-        const trainerId = target.closest(".trainer-item").dataset.id;
-        alert(`Edit Trainer with ID: ${trainerId}`);
-    } else if (target.classList.contains("delete-btn")) {
-        // Add your logic for deleting a trainer here
-        const trainerId = target.closest(".trainer-item").dataset.id;
-        alert(`Delete Trainer with ID: ${trainerId}`);
+        trainers.forEach(trainer => {
+            const trainerDiv = document.createElement('div');
+            trainerDiv.className = 'trainer';
+
+            const trainerName = document.createElement('h2');
+            trainerName.className = 'trainer__name';
+            trainerName.textContent = trainer.firstName;
+            trainerDiv.appendChild(trainerName);
+
+            const trainerLastName = document.createElement('h2');
+            trainerLastName.className = 'trainer__lname';
+            trainerLastName.textContent = trainer.lastName;
+            trainerDiv.appendChild(trainerLastName);
+
+            const salary = document.createElement('h3');
+            salary.className = 'trainer__salary';
+            salary.textContent = trainer.salary;
+            trainerDiv.appendChild(salary);
+
+            const shiftFrom = document.createElement('h4');
+            shiftFrom.className = 'trainer__sf';
+            shiftFrom.textContent = trainer.shiftFrom;
+            trainerDiv.appendChild(shiftFrom);
+
+            const shiftTo = document.createElement('h4');
+            shiftTo.className = 'trainer__st';
+            shiftTo.textContent = trainer.shiftTo;
+            trainerDiv.appendChild(shiftTo);
+
+            const trainerActions = document.createElement('div');
+            trainerActions.className = 'trainer__actions';
+            trainerDiv.appendChild(trainerActions);
+
+            const editButton = document.createElement('a');
+            editButton.className = 'trainer__edit';
+            editButton.textContent = 'Edit Shift';
+            editButton.href = "../EditTrainer/index.html?id=" + trainer._id
+            trainerActions.appendChild(editButton);
+
+            const deleteButton = document.createElement('a');
+            deleteButton.className = 'trainer__delete';
+            deleteButton.textContent = 'Delete';
+            trainerActions.appendChild(deleteButton);
+
+            deleteButton.addEventListener("click", event => {
+                deleteItem(trainer._id)
+            });
+
+            trainersList.appendChild(trainerDiv);
+        });
+    } catch (error) {
+        console.error('Error fetching trainers:', error);
     }
+}
+
+
+// Fetch trainers when the search form is submitted
+document.getElementById('searchForm').addEventListener('submit', event => {
+    event.preventDefault();
+
+    const searchInput = document.getElementById('searchInput').value;
+    fetchTrainers({name: searchInput});
 });
 
-// Initial rendering of trainers list
-renderTrainers();
+
+async function deleteItem(id) {
+    const response = await fetch('http://localhost:5000/api/admin/trainer/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization' : localStorage.getItem('token')
+        }
+    });
+
+    if (response.ok) {
+        alert('Deleted')
+        window.location.reload()
+    } else if (response.status === 404) {
+        alert('User not registered');
+    } else {
+        console.error(`Error: ${response.status}`);
+    }
+}
