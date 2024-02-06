@@ -34,12 +34,14 @@ document.querySelector('.login__form').addEventListener('submit', async (event) 
 
     if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('token', data.token)
+        localStorage.setItem('token', 'Bearer ' + data.token)
         localStorage.setItem('role' , data.role)
         if(data.role === 'admin') {
             window.location.href = "../AdminPanel/index.html"
         }else if (data.role === 'trainer'){
-            window.location.href = "../AdminPanel/index.html"
+            window.location.href = "../TrainerPanel/index.html"
+        }else if (data.role === 'member'){
+            window.location.href = "../MemberPanel/index.html"
         }
     } else if (response.status === 404) {
         alert('User not registered');
