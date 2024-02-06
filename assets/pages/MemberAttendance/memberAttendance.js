@@ -1,60 +1,64 @@
-// app.js
-const attendanceButtons = document.querySelectorAll(".member__edit");
+document.addEventListener('DOMContentLoaded', () => {
+    fetchmembers();
+});
+
 const membersList = document.getElementById("membersList");
-const searchForm = document.getElementById("searchForm");
 
-// Dummy data for members (replace with real data)
-const members = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Michael Johnson" }
-];
+// Fetch members from the server and display them
+async function fetchmembers(query = {}) {
+    try {
+        const url = new URL('http://localhost:5000/api/member/member');
+        url.search = new URLSearchParams(query).toString();
 
-// Function to create a new member item
-function createMemberItem(member) {
-    const memberItem = document.createElement("div");
-    memberItem.classList.add("member");
-    memberItem.dataset.id = member.id;
-    memberItem.innerHTML = `
-        <h2 class="member__name">${member.name}</h2>
-        <div class="member__actions">
-            <button class="member__edit">Attendance</button>
-            <button class="member__delete">Delete</button>
-        </div>
-    `;
-    return memberItem;
-}
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-// Function to render members list
-function renderMembers() {
-    membersList.innerHTML = "";
-    members.forEach(member => {
-        const memberItem = createMemberItem(member);
-        membersList.appendChild(memberItem);
-    });
-}
+        const members = await response.json();
 
-// Event delegation for attendance buttons
-membersList.addEventListener("click", event => {
-    const target = event.target;
-    if (target.classList.contains("member__edit")) {
-        // Add your logic for marking attendance here
-        const memberId = target.closest(".member").dataset.id;
-        alert(`Mark Attendance for Member with ID: ${memberId}`);
-    } else if (target.classList.contains("member__delete")) {
-        // Add your logic for deleting a member here
-        const memberId = target.closest(".member").dataset.id;
-        alert(`Delete Member with ID: ${memberId}`);
+        const membersList = document.getElementById('membersList');
+        membersList.innerHTML = ''; // Clear the list
+
+        members.forEach(member => {
+            const memberDiv = document.createElement('div');
+            memberDiv.className = 'member';
+
+            const memberName = document.createElement('h2');
+            memberName.className = 'member__name';
+            memberName.textContent = member.firstName;
+            memberDiv.appendChild(memberName);
+
+            const memberLastName = document.createElement('h2');
+            memberLastName.className = 'member__lname';
+            memberLastName.textContent = member.lastName;
+            memberDiv.appendChild(memberLastName);
+
+            const phoneNumber = document.createElement('h4');
+            phoneNumber.className = 'member__age';
+            phoneNumber.textContent = member.phoneNumber;
+            memberDiv.appendChild(phoneNumber);
+
+            const memberActions = document.createElement('div');
+            memberActions.className = 'member__actions';
+            memberDiv.appendChild(memberActions);
+
+            const attendance = document.createElement('a');
+            attendance.className = 'member__attended';
+            attendance.textContent = 'Attendance';
+            attendance.href = "../Attendance/index.html?id=" + member._id
+            memberActions.appendChild(attendance);
+
+            membersList.appendChild(memberDiv);
+        });
+    } catch (error) {
+        console.error('Error fetching members:', error);
     }
-});
+}
 
-// Event listener for search form submission
-searchForm.addEventListener("submit", event => {
+
+// Fetch members when the search form is submitted
+document.getElementById('searchForm').addEventListener('submit', event => {
     event.preventDefault();
-    const searchInput = document.getElementById("searchInput").value;
-    // Add your logic for searching members here
-    alert(`Search query: ${searchInput}`);
-});
 
-// Initial rendering of members list
-renderMembers();
+    const searchInput = document.getElementById('searchInput').value;
+    fetchmembers({name: searchInput});
+});
