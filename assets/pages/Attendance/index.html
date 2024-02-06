@@ -3,58 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/pages/Attendance/styles.css">
+    <link rel="stylesheet" href="../Attendance/styles.css">
     <title>Attendance</title>
 </head>
 <body>
-    <header class="header" id="header">
-        <nav class="nav container">
-            <a href="#" class="nav__logo">Gym Membership Management</a>
+<header class="header" id="header">
+    <nav class="nav container">
+        <a href="#" class="nav__logo">Gym Membership Management</a>
 
-            <div class="nav__menu" id="nav-menu">
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
+        <div class="nav__menu" id="nav-menu">
+            <div class="nav__close" id="nav-close">
+                <i class="ri-close-line"></i>
             </div>
-            <div class="nav__actions">
-                <button class="nav__signin">Go Back</button>
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-line"></i>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="main">
-        <div class="container">
-            <form id="attendanceForm" class="attendance-form">
-                <label class="attendance-label">Attendance Status:</label>
-                <div class="attendance-checkboxes">
-                    <label>
-                        <input type="checkbox" name="attendance" value="present">
-                        Present
-                    </label>
-                    <label>
-                        <input type="checkbox" name="attendance" value="absent">
-                        Absent
-                    </label>
-                </div>
-                <br>
-                <button type="submit" class="submit-btn">Submit</button>
-            </form>
         </div>
+        <div class="nav__actions">
+            <button class="nav__signin">Go Back</button>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="main">
+    <div class="container">
+        <!--            <form id="attendanceForm" class="attendance-form">-->
+        <label class="attendance-label">Attendance Status:</label>
+        <div class="attendance-checkboxes">
+            <label>
+                <button type="checkbox" name="attendance" value="present" onclick="attend(true)">
+                    Present
+                </button>
+            </label>
+            <label>
+                <button type="checkbox" name="attendance" value="absent" onclick="attend(false)">
+                    Absent
+                </button>
+
+            </label>
+        </div>
+        <br>
+        <!--                <button type="submit" class="submit-btn">Submit</button>-->
+        <!--            </form>-->
     </div>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__logo">Gym Membership Management</div>
-            <div class="footer__social">
-                <a href="#" class="footer__icon"><i class="ri-facebook-fill"></i></a>
-                <a href="#" class="footer__icon"><i class="ri-twitter-fill"></i></a>
-                <a href="#" class="footer__icon"><i class="ri-instagram-fill"></i></a>
-            </div>
-            <p class="footer__text">© 2024 Gym Membership Management. All rights reserved.</p>
-            <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer__logo">Gym Membership Management</div>
+        <div class="footer__social">
+            <a href="#" class="footer__icon"><i class="ri-facebook-fill"></i></a>
+            <a href="#" class="footer__icon"><i class="ri-twitter-fill"></i></a>
+            <a href="#" class="footer__icon"><i class="ri-instagram-fill"></i></a>
         </div>
-    </footer>
-    <script src="attendance.js"></script>
+        <p class="footer__text">© 2024 Gym Membership Management. All rights reserved.</p>
+        <p class="footer__text">-Soroush Azizi and Alireza Dolatabadi-</p>
+    </div>
+</footer>
+<script src="attendance.js"></script>
 </body>
 </html>
