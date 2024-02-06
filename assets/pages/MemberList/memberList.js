@@ -1,65 +1,93 @@
-// scripts.js
-const addMemberBtn = document.querySelector(".nav__signin");
+document.addEventListener('DOMContentLoaded', () => {
+    fetchmembers();
+});
+
 const membersList = document.getElementById("membersList");
-const searchForm = document.getElementById("searchForm");
 
-// Dummy data for members (replace with real data)
-const members = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Michael Johnson" }
-];
+// Fetch members from the server and display them
+async function fetchmembers(query = {}) {
+    try {
+        const url = new URL('http://localhost:5000/api/member/member');
+        url.search = new URLSearchParams(query).toString();
 
-// Function to create a new member item
-function createMemberItem(member) {
-    const memberItem = document.createElement("div");
-    memberItem.classList.add("member");
-    memberItem.innerHTML = `
-        <h2 class="member__name">${member.name}</h2>
-        <div class="member__actions">
-            <button class="member__edit">Edit</button>
-            <button class="member__delete">Delete</button>
-        </div>
-    `;
-    return memberItem;
-}
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-// Function to render members list
-function renderMembers() {
-    membersList.innerHTML = "";
-    members.forEach(member => {
-        const memberItem = createMemberItem(member);
-        membersList.appendChild(memberItem);
-    });
-}
+        const members = await response.json();
 
-// Event listener for add member button
-addMemberBtn.addEventListener("click", () => {
-    // Add your logic for adding a new member here
-    alert("Add Member button clicked!");
-});
+        const membersList = document.getElementById('membersList');
+        membersList.innerHTML = ''; // Clear the list
 
-// Event delegation for edit and delete buttons
-membersList.addEventListener("click", event => {
-    const target = event.target;
-    if (target.classList.contains("member__edit")) {
-        // Add your logic for editing a member here
-        const memberId = target.closest(".member").dataset.id;
-        alert(`Edit Member with ID: ${memberId}`);
-    } else if (target.classList.contains("member__delete")) {
-        // Add your logic for deleting a member here
-        const memberId = target.closest(".member").dataset.id;
-        alert(`Delete Member with ID: ${memberId}`);
+        members.forEach(member => {
+            const memberDiv = document.createElement('div');
+            memberDiv.className = 'member';
+
+            const memberName = document.createElement('h2');
+            memberName.className = 'member__name';
+            memberName.textContent = member.firstName;
+            memberDiv.appendChild(memberName);
+
+            const memberLastName = document.createElement('h2');
+            memberLastName.className = 'member__lname';
+            memberLastName.textContent = member.lastName;
+            memberDiv.appendChild(memberLastName);
+
+            const phoneNumber = document.createElement('h4');
+            phoneNumber.className = 'member__age';
+            phoneNumber.textContent = member.phoneNumber;
+            memberDiv.appendChild(phoneNumber);
+
+            const memberActions = document.createElement('div');
+            memberActions.className = 'member__actions';
+            memberDiv.appendChild(memberActions);
+
+            const editButton = document.createElement('a');
+            editButton.className = 'member__edit';
+            editButton.textContent = 'Edit';
+            editButton.href = "../EditMember/index.html?id=" + member._id
+            memberActions.appendChild(editButton);
+
+            const deleteButton = document.createElement('a');
+            deleteButton.className = 'member__delete';
+            deleteButton.textContent = 'Delete';
+            memberActions.appendChild(deleteButton);
+
+            deleteButton.addEventListener("click", event => {
+                deleteItem(member._id)
+            });
+
+            membersList.appendChild(memberDiv);
+        });
+    } catch (error) {
+        console.error('Error fetching members:', error);
     }
-});
+}
 
-// Event listener for search form submission
-searchForm.addEventListener("submit", event => {
+
+// Fetch members when the search form is submitted
+document.getElementById('searchForm').addEventListener('submit', event => {
     event.preventDefault();
-    const searchInput = document.getElementById("searchInput").value;
-    // Add your logic for searching members here
-    alert(`Search query: ${searchInput}`);
+
+    const searchInput = document.getElementById('searchInput').value;
+    fetchmembers({name: searchInput});
 });
 
-// Initial rendering of members list
-renderMembers();
+
+async function deleteItem(id) {
+    const response = await fetch('http://localhost:5000/api/admin/member/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization' : localStorage.getItem('token')
+        }
+    });
+
+    if (response.ok) {
+        alert('Deleted')
+        window.location.reload()
+    } else if (response.status === 404) {
+        alert('User not registered');
+    } else {
+        console.error(`Error: ${response.status}`);
+    }
+}
